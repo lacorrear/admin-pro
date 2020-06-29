@@ -3,26 +3,18 @@ import { RouterModule, Routes } from "@angular/router";
 
 import { LoginComponent } from "./login/login.component";
 import { RegisterComponent } from "./login/register.component";
-import { DashboardComponent } from "./pages/dashboard/dashboard.component";
-import { Graph1Component } from "./pages/graph1/graph1.component";
-import { PagesComponent } from "./pages/pages.component";
-import { ProgressComponent } from "./pages/progress/progress.component";
 import { NopagefoundComponent } from "./shared/nopagefound/nopagefound.component";
 
 const routes: Routes = [
+  // Nested routing
+  // https://www.freakyjolly.com/angular-nested-routing-with-multiple-routeroutlet-using-loadchildren-having-own-router-modules-example-application/#.Xvko0ChKhhE
   {
     path: "",
-    component: PagesComponent,
-    children: [
-      { path: "dashboard", component: DashboardComponent },
-      { path: "progress", component: ProgressComponent },
-      { path: "grahp1", component: Graph1Component },
-      { path: "", redirectTo: "/dashboard", pathMatch: "full" },
-    ],
+    loadChildren: () =>
+      import(`./pages/pages.module`).then((m) => m.PagesModule),
   },
   { path: "login", component: LoginComponent },
   { path: "register", component: RegisterComponent },
-
   { path: "**", component: NopagefoundComponent },
 ];
 
