@@ -1,1 +1,14 @@
-<p>graph1 works!</p>
+<div class="row">
+  <div *ngFor="let graph of graficos | keyvalue" class="col-6">
+    <div class="card">
+      <div class="card-body">
+        <donut-chart
+          [title]="graph.value.leyenda"
+          [data]="graph.value.data"
+          [labels]="graph.value.labels"
+          [chartType]="graph.value.type"
+        ></donut-chart>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,36 @@
+<h4>{{ name }}</h4>
+<div class="input-group mb-3">
+  <div class="input-group-prepend">
+    <button
+      (click)="changeValue(-5)"
+      class="btn btn-outline-primary"
+      type="button"
+      id="button-addon1"
+    >
+      <i class="mdi mdi-minus"></i>
+    </button>
+  </div>
+  <input
+    #txtProgress
+    type="number"
+    min="0"
+    max="100"
+    class="form-control"
+    name="progressValue"
+    [(ngModel)]="percent"
+    (ngModelChange)="onChange($event)"
+    placeholder="Enter a custom value"
+    aria-label="Example text with button addon"
+    aria-describedby="button-addon1"
+  />
+  <div class="input-group-append">
+    <button
+      (click)="changeValue(+5)"
+      class="btn btn-outline-primary"
+      type="button"
+      id="button-addon2"
+    >
+      <i class="mdi mdi-plus"></i>
+    </button>
+  </div>
+</div>
