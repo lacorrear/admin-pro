@@ -12,6 +12,8 @@ import { Graph1Component } from "./graph1/graph1.component";
 import { PagesRoutingModule } from "./pages-routing.module";
 import { PagesComponent } from "./pages.component";
 import { ProgressComponent } from "./progress/progress.component";
+import { PromisesComponent } from "./promises/promises.component";
+import { RxjsComponent } from "./rxjs/rxjs.component";
 
 @NgModule({
   declarations: [
@@ -22,6 +24,8 @@ import { ProgressComponent } from "./progress/progress.component";
     IncrementorComponent,
     DonutChartComponent,
     AccountSettingsComponent,
+    PromisesComponent,
+    RxjsComponent,
   ],
   exports: [
     DashboardComponent,
