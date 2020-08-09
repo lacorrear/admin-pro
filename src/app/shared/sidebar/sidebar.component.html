@@ -27,7 +27,15 @@
                 >Account Setting</a
               >
             </li>
-            <li><a routerLink="/login">Logout</a></li>
+            <li>
+              <a
+                (click)="_userService.logOut()"
+                routerLink="['./']"
+                routerLinkActive="active"
+                class="pointer"
+                >Logout</a
+              >
+            </li>
           </ul>
         </li>
         <!-- ------------------------------------------------ -->

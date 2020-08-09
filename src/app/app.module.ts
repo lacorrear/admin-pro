@@ -1,5 +1,5 @@
 import { NgModule } from "@angular/core";
-import { FormsModule } from "@angular/forms";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { BrowserModule } from "@angular/platform-browser";
 
 import { AppRoutingModule } from "./app-routing.module";
@@ -8,6 +8,7 @@ import { LoginComponent } from "./login/login.component";
 import { RegisterComponent } from "./login/register.component";
 import { PagesModule } from "./pages/pages.module";
 import { ServiceModule } from "./services/service.module";
+import { SweetAlert2Module } from "@sweetalert2/ngx-sweetalert2";
 
 @NgModule({
   declarations: [AppComponent, LoginComponent, RegisterComponent],
@@ -17,6 +18,8 @@ import { ServiceModule } from "./services/service.module";
     PagesModule,
     ServiceModule,
     FormsModule,
+    ReactiveFormsModule,
+    SweetAlert2Module,
   ],
   providers: [],
   bootstrap: [AppComponent],
