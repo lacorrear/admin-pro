@@ -6,6 +6,7 @@ import { ChartsModule } from "ng2-charts";
 import { DonutChartComponent } from "../components/donut-chart/donut-chart.component";
 import { IncrementorComponent } from "../components/incrementor/incrementor.component";
 import { SharedModule } from "../shared/shared.module";
+import { PipesModule } from "./../pipes/pipes.module";
 import { AccountSettingsComponent } from "./account-settings/account-settings.component";
 import { DashboardComponent } from "./dashboard/dashboard.component";
 import { Graph1Component } from "./graph1/graph1.component";
@@ -14,6 +15,7 @@ import { PagesComponent } from "./pages.component";
 import { ProgressComponent } from "./progress/progress.component";
 import { PromisesComponent } from "./promises/promises.component";
 import { RxjsComponent } from "./rxjs/rxjs.component";
+import { ProfileComponent } from "./profile/profile.component";
 
 @NgModule({
   declarations: [
@@ -26,6 +28,7 @@ import { RxjsComponent } from "./rxjs/rxjs.component";
     AccountSettingsComponent,
     PromisesComponent,
     RxjsComponent,
+    ProfileComponent,
   ],
   exports: [
     DashboardComponent,
@@ -40,6 +43,7 @@ import { RxjsComponent } from "./rxjs/rxjs.component";
     SharedModule,
     FormsModule,
     ChartsModule,
+    PipesModule,
   ],
 })
 export class PagesModule {}

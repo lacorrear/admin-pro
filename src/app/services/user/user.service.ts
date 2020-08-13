@@ -1,11 +1,12 @@
-import { Router } from "@angular/router";
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
+import { Router } from "@angular/router";
 import { map } from "rxjs/operators";
 import { URL_SERVICIOS } from "src/app/config/config";
 import Swal from "sweetalert2";
 
 import { User } from "./../../models/user.model";
+import { LoadFileService } from "./../load-file/load-file.service";
 
 @Injectable({
   providedIn: "root",
@@ -15,7 +16,11 @@ export class UserService {
   user: User;
   token: string;
 
-  constructor(public http: HttpClient, public router: Router) {
+  constructor(
+    public http: HttpClient,
+    public router: Router,
+    public _loadFileService: LoadFileService
+  ) {
     this.loadStorage();
   }
 
@@ -79,6 +84,7 @@ export class UserService {
     localStorage.removeItem("token");
     this.router.navigate(["/login"]);
   }
+
   createUser(user: User) {
     let url = URL_SERVICIOS + "/user";
     // Use return in order to get an observable as an answer
@@ -93,5 +99,47 @@ export class UserService {
         return data.user;
       })
     );
+  }
+
+  updateUser(user: User) {
+    let url = URL_SERVICIOS + "/user/" + user._id + "?token=" + this.token;
+
+    return this.http.put(url, user).pipe(
+      map((data: any) => {
+        // Saving user updates in local storage
+        let userDB: User = data.user;
+        this.saveInStogare(userDB._id, this.token, userDB);
+
+        // Alert to confirm everything went OK
+        Swal.fire({
+          icon: "success",
+          title: "User profile updated",
+          text: userDB.name,
+          showConfirmButton: true,
+        });
+
+        return true;
+      })
+    );
+  }
+
+  changeImage(file: File, id: string) {
+    this._loadFileService
+      .loadFile(file, "users", id)
+      .then((resp: any) => {
+        // Saving user updates in local storage
+        this.user.img = resp.user.img;
+        this.saveInStogare(id, this.token, this.user);
+        // Alert to confirm everything went OK
+        Swal.fire({
+          icon: "success",
+          title: "User profile updated",
+          text: this.user.name,
+          showConfirmButton: true,
+        });
+      })
+      .catch((data) => {
+        console.log(data);
+      });
   }
 }

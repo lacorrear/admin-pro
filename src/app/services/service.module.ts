@@ -6,18 +6,20 @@ import {
   SidebarService,
   UserService,
   LoginGuardGuard,
+  LoadFileService,
 } from "./service.index";
 import { HttpClientModule } from "@angular/common/http";
 
 @NgModule({
-  declarations: [],
+  imports: [CommonModule, HttpClientModule],
   providers: [
     SettingsService,
     SharedService,
     SidebarService,
     UserService,
     LoginGuardGuard,
+    LoadFileService,
   ],
-  imports: [CommonModule, HttpClientModule],
+  declarations: [],
 })
 export class ServiceModule {}
