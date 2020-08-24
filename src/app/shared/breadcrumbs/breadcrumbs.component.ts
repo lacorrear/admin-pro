@@ -13,7 +13,6 @@ export class BreadcrumbsComponent implements OnInit {
 
   constructor(private router: Router, public _title: Title, public meta: Meta) {
     this.getDataRoute().subscribe((data) => {
-      console.log(data.title);
       this.label = data.title;
       // text in the "pestaña"
       this._title.setTitle(this.label);

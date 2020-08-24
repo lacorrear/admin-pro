@@ -1,3 +1,4 @@
+import { UsersComponent } from "./users/users.component";
 import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
 
@@ -45,9 +46,15 @@ const routes: Routes = [
       {
         path: "profile",
         component: ProfileComponent,
-        data: { title: "User profile" },
+        data: { title: "User Profile" },
       },
       { path: "rxjs", component: RxjsComponent, data: { title: "RxJs" } },
+      // Maintenance
+      {
+        path: "users",
+        component: UsersComponent,
+        data: { title: "Users Maintenance" },
+      },
       { path: "", redirectTo: "/dashboard", pathMatch: "full" },
     ],
   },

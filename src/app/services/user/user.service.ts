@@ -107,14 +107,15 @@ export class UserService {
     return this.http.put(url, user).pipe(
       map((data: any) => {
         // Saving user updates in local storage
-        let userDB: User = data.user;
-        this.saveInStogare(userDB._id, this.token, userDB);
-
+        if (user._id === this.user._id) {
+          let userDB: User = data.user;
+          this.saveInStogare(userDB._id, this.token, userDB);
+        }
         // Alert to confirm everything went OK
         Swal.fire({
           icon: "success",
           title: "User profile updated",
-          text: userDB.name,
+          text: user.name,
           showConfirmButton: true,
         });
 
@@ -141,5 +142,25 @@ export class UserService {
       .catch((data) => {
         console.log(data);
       });
+  }
+
+  loadUsers(from: number = 0) {
+    let url = URL_SERVICIOS + "/user?from=" + from;
+    return this.http.get(url);
+  }
+
+  searchUsers(text: string) {
+    let url = URL_SERVICIOS + "/search/collection/users/" + text;
+    return this.http.get(url).pipe(map((data: any) => data.users));
+  }
+
+  deleteUser(id: string) {
+    let url = URL_SERVICIOS + "/user/" + id + "?token=" + this.token;
+    return this.http.delete(url).pipe(
+      map((res) => {
+        Swal.fire("Deleted!", "User has been deleted.", "success");
+        return true;
+      })
+    );
   }
 }
