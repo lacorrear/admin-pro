@@ -1,0 +1,108 @@
+<!-- Search bar -->
+<div class="row animated fadeIn">
+  <div class="col-12">
+    <div class="card">
+      <div class="card-body">
+        <input
+          #input
+          (keyup)="searchHospital(input.value)"
+          class="form-control"
+          type="text"
+          placeholder="search hospital"
+        />
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- loading message -->
+<div *ngIf="isLoading" class="row animated fadeIn">
+  <div class="col-sm-12">
+    <div class="alert alert-warning text-center">
+      <strong>Loading</strong>
+      <br />
+      <i class="fa fa-refresh fa-spin fa-2x"></i>
+      <br />
+      <span>please wait</span>
+    </div>
+  </div>
+</div>
+
+<!-- hospitals info table -->
+<div class="row animated fadeIn">
+  <div class="col-12">
+    <div class="card">
+      <div class="card-body">
+        <!-- Create hospital button -->
+        <div class="text-right">
+          <button
+            (click)="createHospital()"
+            type="button"
+            class="btn waves-effect waves-light btn-rounded btn-primary"
+          >
+            <i class="fa fa-plus"></i>
+            Create hospital
+          </button>
+        </div>
+
+        <h3 class="card-title">
+          Total hospitals (<small> {{ totalRegisters }} </small>)
+        </h3>
+        <table class="table table-hover">
+          <thead>
+            <tr>
+              <th>Image</th>
+              <th>Hospital</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let hospital of hospitals">
+              <td class="w70">
+                <img
+                  (click)="showModal(hospital._id)"
+                  [src]="hospital.img | image: 'hospital'"
+                  class="img-50 img-circle pointer"
+                />
+              </td>
+
+              <td>
+                <input
+                  #name="ngModel"
+                  name="hospitalName"
+                  [(ngModel)]="hospital.name"
+                  class="form-control"
+                  type="text"
+                  placeholder="Hospital name"
+                />
+              </td>
+
+              <td>
+                <button
+                  [disabled]="!name.dirty"
+                  (click)="updateHospital(hospital)"
+                  class="btn btn-outline-primary mr-2"
+                >
+                  <i class="fa fa-save"></i>
+                </button>
+                <button
+                  (click)="deleteHospital(hospital)"
+                  class="btn btn-outline-danger"
+                >
+                  <i class="fa fa-trash-o"></i>
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+
+        <button (click)="changeFrom(-5)" class="btn btn-outline-secondary mr-2">
+          previus
+        </button>
+        <button (click)="changeFrom(5)" class="btn btn-outline-secondary">
+          next
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

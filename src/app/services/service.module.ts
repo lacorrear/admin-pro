@@ -8,6 +8,8 @@ import {
   UserService,
   LoginGuardGuard,
   LoadFileService,
+  HospitalService,
+  DoctorService,
 } from "./service.index";
 import { HttpClientModule } from "@angular/common/http";
 
@@ -20,6 +22,8 @@ import { HttpClientModule } from "@angular/common/http";
     UserService,
     LoginGuardGuard,
     LoadFileService,
+    HospitalService,
+    DoctorService,
     ModaluploadService,
   ],
   declarations: [],

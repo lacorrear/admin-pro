@@ -1,16 +1,19 @@
-import { UsersComponent } from "./users/users.component";
 import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
 
 import { LoginGuardGuard } from "./../services/guards/login-guard.guard";
 import { AccountSettingsComponent } from "./account-settings/account-settings.component";
 import { DashboardComponent } from "./dashboard/dashboard.component";
+import { DoctorComponent } from "./doctors/doctor/doctor.component";
+import { DoctorsComponent } from "./doctors/doctors.component";
 import { Graph1Component } from "./graph1/graph1.component";
+import { HospitalsComponent } from "./hospitals/hospitals.component";
 import { PagesComponent } from "./pages.component";
 import { ProfileComponent } from "./profile/profile.component";
 import { ProgressComponent } from "./progress/progress.component";
 import { PromisesComponent } from "./promises/promises.component";
 import { RxjsComponent } from "./rxjs/rxjs.component";
+import { UsersComponent } from "./users/users.component";
 
 const routes: Routes = [
   {
@@ -54,6 +57,21 @@ const routes: Routes = [
         path: "users",
         component: UsersComponent,
         data: { title: "Users Maintenance" },
+      },
+      {
+        path: "hospitals",
+        component: HospitalsComponent,
+        data: { title: "Hospitals Maintenance" },
+      },
+      {
+        path: "doctors",
+        component: DoctorsComponent,
+        data: { title: "Doctors Maintenance" },
+      },
+      {
+        path: "doctor/:id",
+        component: DoctorComponent,
+        data: { title: "Update Doctor" },
       },
       { path: "", redirectTo: "/dashboard", pathMatch: "full" },
     ],
