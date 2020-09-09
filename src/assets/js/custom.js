@@ -65,7 +65,12 @@ function initPlugins() {
     $(".search-box a, .search-box .app-search .srh-btn").on(
       "click",
       function () {
-        $(".app-search").toggle(200);
+        // original time toggle using  only <script src="assets/js/custom.js"></script> in index.html
+        // but using only   <script src="assets/js/custom.js"></script> the toogle shows for a few seconds an then hide itself
+        // thats why it was necesary to put <script src="assets/js/custom.min.js"></script> in index.html
+        // $(".app-search").toggle(200);
+
+        $(".app-search").toggle();
       }
     );
     // ==============================================================

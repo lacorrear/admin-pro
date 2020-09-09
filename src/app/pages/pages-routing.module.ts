@@ -1,6 +1,7 @@
 import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
 
+import { AdminGuard } from "./../services/guards/admin.guard";
 import { LoginGuardGuard } from "./../services/guards/login-guard.guard";
 import { AccountSettingsComponent } from "./account-settings/account-settings.component";
 import { DashboardComponent } from "./dashboard/dashboard.component";
@@ -13,6 +14,7 @@ import { ProfileComponent } from "./profile/profile.component";
 import { ProgressComponent } from "./progress/progress.component";
 import { PromisesComponent } from "./promises/promises.component";
 import { RxjsComponent } from "./rxjs/rxjs.component";
+import { SearchComponent } from "./search/search.component";
 import { UsersComponent } from "./users/users.component";
 
 const routes: Routes = [
@@ -52,10 +54,13 @@ const routes: Routes = [
         data: { title: "User Profile" },
       },
       { path: "rxjs", component: RxjsComponent, data: { title: "RxJs" } },
-      // Maintenance
+
+      //-------------- Maintenance --------------
+
       {
         path: "users",
         component: UsersComponent,
+        canActivate: [AdminGuard],
         data: { title: "Users Maintenance" },
       },
       {
@@ -72,6 +77,11 @@ const routes: Routes = [
         path: "doctor/:id",
         component: DoctorComponent,
         data: { title: "Update Doctor" },
+      },
+      {
+        path: "search/:term",
+        component: SearchComponent,
+        data: { title: "Searcher" },
       },
       { path: "", redirectTo: "/dashboard", pathMatch: "full" },
     ],

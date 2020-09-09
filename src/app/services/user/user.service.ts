@@ -1,7 +1,8 @@
+import { Observable } from "rxjs";
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Router } from "@angular/router";
-import { map } from "rxjs/operators";
+import { map, catchError } from "rxjs/operators";
 import { URL_SERVICIOS } from "src/app/config/config";
 import Swal from "sweetalert2";
 
@@ -14,6 +15,7 @@ import { LoadFileService } from "./../load-file/load-file.service";
 export class UserService {
   // In order to validate if a user is already login
   user: User;
+  menu: any = [];
   token: string;
 
   constructor(
@@ -32,20 +34,24 @@ export class UserService {
     if (localStorage.getItem("token")) {
       this.token = localStorage.getItem("token");
       this.user = JSON.parse(localStorage.getItem("user"));
+      this.menu = JSON.parse(localStorage.getItem("menu"));
     } else {
       this.token = "";
       this.user = null;
+      this.menu = [];
     }
   }
 
-  saveInStogare(id: string, token: string, user: User) {
+  saveInStogare(id: string, token: string, user: User, menu: any) {
     // Saving in local storage user data
     localStorage.setItem("id", id);
     localStorage.setItem("token", token);
     localStorage.setItem("user", JSON.stringify(user));
+    localStorage.setItem("menu", JSON.stringify(menu));
 
     this.user = user;
     this.token = token;
+    this.menu = menu;
   }
 
   loginGoogle(token: string) {
@@ -54,7 +60,7 @@ export class UserService {
     return this.http.post(url, { token }).pipe(
       map((data: any) => {
         // Saving in local storage user data
-        this.saveInStogare(data.id, data.token, data.user);
+        this.saveInStogare(data.id, data.token, data.user, data.menu);
         return true;
       })
     );
@@ -71,8 +77,19 @@ export class UserService {
           localStorage.removeItem("email");
         }
         // Saving in local storage user data
-        this.saveInStogare(data.id, data.token, data.user);
+        this.saveInStogare(data.id, data.token, data.user, data.menu);
         return true;
+      }),
+      catchError((err) => {
+        let errorMessage = err.error.message;
+        errorMessage = errorMessage.substring(0, errorMessage.indexOf("-"));
+
+        Swal.fire({
+          icon: "error",
+          title: "Login error",
+          text: errorMessage,
+        });
+        return Observable.throw(err);
       })
     );
   }
@@ -80,8 +97,11 @@ export class UserService {
   logOut() {
     this.user = null;
     this.token = "";
+
     localStorage.removeItem("user");
     localStorage.removeItem("token");
+    localStorage.removeItem("menu");
+
     this.router.navigate(["/login"]);
   }
 
@@ -97,6 +117,16 @@ export class UserService {
           confirmButtonText: "OK",
         });
         return data.user;
+      }),
+      catchError((err) => {
+        let errorMessage = err.error.errors.message;
+
+        Swal.fire({
+          icon: "error",
+          title: err.error.message,
+          text: errorMessage,
+        });
+        return Observable.throw(err);
       })
     );
   }
@@ -109,7 +139,7 @@ export class UserService {
         // Saving user updates in local storage
         if (user._id === this.user._id) {
           let userDB: User = data.user;
-          this.saveInStogare(userDB._id, this.token, userDB);
+          this.saveInStogare(userDB._id, this.token, userDB, this.menu);
         }
         // Alert to confirm everything went OK
         Swal.fire({
@@ -120,6 +150,16 @@ export class UserService {
         });
 
         return true;
+      }),
+      catchError((err) => {
+        let errorMessage = err.error.errors.message;
+
+        Swal.fire({
+          icon: "error",
+          title: err.error.message,
+          text: errorMessage,
+        });
+        return Observable.throw(err);
       })
     );
   }
@@ -130,7 +170,7 @@ export class UserService {
       .then((resp: any) => {
         // Saving user updates in local storage
         this.user.img = resp.user.img;
-        this.saveInStogare(id, this.token, this.user);
+        this.saveInStogare(id, this.token, this.user, this.menu);
         // Alert to confirm everything went OK
         Swal.fire({
           icon: "success",
