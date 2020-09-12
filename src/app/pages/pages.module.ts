@@ -18,14 +18,14 @@ import { RxjsComponent } from "./rxjs/rxjs.component";
 import { ProfileComponent } from "./profile/profile.component";
 import { UsersComponent } from "./users/users.component";
 import { ModaluploadComponent } from "../components/modal-upload/modal-upload.component";
-import { HospitalsComponent } from './hospitals/hospitals.component';
-import { DoctorsComponent } from './doctors/doctors.component';
-import { DoctorComponent } from './doctors/doctor/doctor.component';
-import { SearchComponent } from './search/search.component';
+import { HospitalsComponent } from "./hospitals/hospitals.component";
+import { DoctorsComponent } from "./doctors/doctors.component";
+import { DoctorComponent } from "./doctors/doctor/doctor.component";
+import { SearchComponent } from "./search/search.component";
 
 @NgModule({
   declarations: [
-    PagesComponent,
+    // PagesComponent,
     DashboardComponent,
     Graph1Component,
     ProgressComponent,
@@ -36,7 +36,7 @@ import { SearchComponent } from './search/search.component';
     RxjsComponent,
     ProfileComponent,
     UsersComponent,
-    ModaluploadComponent,
+    // ModaluploadComponent,
     HospitalsComponent,
     DoctorsComponent,
     DoctorComponent,

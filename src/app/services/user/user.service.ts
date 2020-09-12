@@ -2,7 +2,7 @@ import { Observable } from "rxjs";
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Router } from "@angular/router";
-import { map, catchError } from "rxjs/operators";
+import { map, catchError,throw } from "rxjs/operators";
 import { URL_SERVICIOS } from "src/app/config/config";
 import Swal from "sweetalert2";
 
@@ -24,6 +24,31 @@ export class UserService {
     public _loadFileService: LoadFileService
   ) {
     this.loadStorage();
+  }
+
+  renewToken() {
+    let url = URL_SERVICIOS + "/login/renewtoken";
+    url += "?token=" + this.token;
+
+    return this.http.get(url).pipe(
+      map((data: any) => {
+        this.token = data.token;
+        localStorage.setItem("token", this.token);
+        console.log("token renovated");
+
+        return true;
+      }),
+      catchError((err) => {
+        this.router.navigate(["/login"]);
+        Swal.fire({
+          icon: "error",
+          title: "Token validation invalid",
+          text: "Token validation was not possible",
+        });
+
+        return Observable.throw(err);
+      })
+    );
   }
 
   isLoggedIn() {

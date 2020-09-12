@@ -1,3 +1,5 @@
+import { SharedModule } from "./shared/shared.module";
+import { PagesComponent } from "./pages/pages.component";
 import { NgModule } from "@angular/core";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { BrowserModule } from "@angular/platform-browser";
@@ -11,15 +13,21 @@ import { ServiceModule } from "./services/service.module";
 import { SweetAlert2Module } from "@sweetalert2/ngx-sweetalert2";
 
 @NgModule({
-  declarations: [AppComponent, LoginComponent, RegisterComponent],
+  declarations: [
+    AppComponent,
+    LoginComponent,
+    RegisterComponent,
+    PagesComponent,
+  ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    PagesModule,
+    // PagesModule,
     ServiceModule,
     FormsModule,
     ReactiveFormsModule,
     SweetAlert2Module,
+    SharedModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
